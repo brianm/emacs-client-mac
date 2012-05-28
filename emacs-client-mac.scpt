@@ -14,6 +14,9 @@ on runclient(filename)
 			if frameVisible is not "t" then
 				-- there is a not a visible frame, launch one
 				do shell script "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c -n  " & filename
+			else if filename is not "" then
+				-- there is a viible frame, just open a file in exiting one
+				do shell script "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n  " & filename
 			end if
 		on error
 			-- daemon is not running, start the daemon and open a frame		
