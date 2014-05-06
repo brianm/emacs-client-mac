@@ -8,6 +8,8 @@ on open argv
 end open
 
 on runclient(filename)
+	tell application "System Events" to set isRunning to (name of processes) contains "Terminal"
+	
 	tell application "Terminal"
 		try
 			set frameVisible to do shell script "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -e '(<= 2 (length (visible-frame-list)))'"
@@ -29,5 +31,7 @@ on runclient(filename)
 	tell application "Emacs" to activate
 	
 	-- close terminal
-	tell application "Terminal" to quit
+	if not isRunning then
+		tell application "Terminal" to quit
+	end if
 end runclient
